@@ -1,13 +1,164 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500&family=Barlow&family=Chakra+Petch:wght@600&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+	--primary-color: #ffee08;
+	--caption-color: rgba(255, 238, 8, 0.48);
+	--background-color: #040c1f;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button {
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.app {
+	background-color: var(--background-color);
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.layout {
+	padding: 40px;
+	max-width: 390px;
+}
+
+.songDetails,
+.songDetails__info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.songDetails__image {
+	margin-top: 183px;
+}
+
+.songDetails__info {
+	margin-top: 26px;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.songDetails__artistName,
+.songDetails__songName {
+	text-align: center;
+}
+
+.songDetails__songName {
+	font-family: "Chakra Petch";
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 31px;
+	color: var(--primary-color);
+}
+
+.songDetails__artistName {
+	margin-top: 6px;
+	font-family: "Barlow";
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 16px;
+	letter-spacing: 0.1em;
+	color: var(--caption-color);
+}
+
+.extraControls {
+	margin-top: 42px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.volume {
+	position: relative;
+}
+
+.volume__barContainer {
+	position: absolute;
+	top: -166px;
+	left: -12px;
+}
+
+.volume__bar {
+	width: 54px;
+	height: 150px;
+	background: url("https://res.cloudinary.com/tropicolx/image/upload/v1675201998/music_app/volume-bar-container_ew2yi7.svg");
+}
+
+.volume__icon {
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+}
+
+.volume__iconOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.volume__barSlider {
+	-webkit-appearance: none;
+	appearance: none;
+	appearance: none;
+	transform: rotate(-90deg);
+	position: absolute;
+	top: 70px;
+	left: -40px;
+	background: transparent;
+	border: 2px solid var(--primary-color);
+	width: 136px;
+	height: 8px;
+}
+
+.volume__barSlider:focus {
+	outline: none;
+}
+
+.volume__barSlider:focus::-webkit-slider-thumb {
+	outline: 2px solid var(--primary-color);
+}
+
+.volume__barSlider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 17px;
+	height: 27px;
+	outline: 2px solid var(--primary-color);
+	border-radius: 5px;
+	background: #f8ef00;
+	cursor: pointer;
+	position: relative;
+}
+
+.visualizer {
+	width: 30px;
+	height: 30px;
+	background: url("https://res.cloudinary.com/tropicolx/image/upload/v1675207290/music_app/soundwave_mg5clq.svg");
+	background-size: cover;
 }
