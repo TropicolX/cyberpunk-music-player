@@ -4,15 +4,12 @@ const Volume = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [volume, setVolume] = useState(0);
 
-	const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef(null);
 
 	useEffect(() => {
-		const listener = (event: Event) => {
+		const listener = (event) => {
 			// Do nothing if clicking ref's element or descendent elements
-			if (
-				!ref.current ||
-				ref.current.contains(event.target as Node | null)
-			) {
+			if (!ref.current || ref.current.contains(event.target)) {
 				return;
 			}
 			setIsOpen(false);
@@ -25,7 +22,7 @@ const Volume = () => {
 		};
 	}, [ref, setIsOpen]);
 
-	const getVolumeSvg = (volume: number) => {
+	const getVolumeSvg = (volume) => {
 		if (volume === 0) {
 			return "url('https://res.cloudinary.com/tropicolx/image/upload/v1675207852/music_app/volume-off_vneq1y.svg')";
 		} else if (volume < 53) {
