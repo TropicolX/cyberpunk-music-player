@@ -3,6 +3,8 @@ import Volume from "./components/Volume";
 
 import "./App.css";
 import SongDetails from "./components/SongDetails";
+import Progress from "./components/Progress";
+import PlayerControls from "./components/PlayerControls";
 
 function App() {
 	return (
@@ -16,7 +18,9 @@ function App() {
 					<button className="visualizer" />
 				</div>
 				{/** Progress Bar */}
+				<Progress />
 				{/** Main Controls */}
+				<PlayerControls />
 			</div>
 		</div>
 	);
