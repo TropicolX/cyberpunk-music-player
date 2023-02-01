@@ -120,10 +120,6 @@ function App() {
 		play();
 	};
 
-	const toggleIsPlaying = () => {
-		setIsPlaying((isPlaying) => !isPlaying);
-	};
-
 	// convert seconds to minutes and seconds in the format of mm:ss
 	const formatTime = (time) => {
 		const minutes = Math.floor(time / 60);
@@ -167,7 +163,7 @@ function App() {
 					next={next}
 					prev={prev}
 					isPlaying={isPlaying}
-					toggleIsPlaying={toggleIsPlaying}
+					toggleIsPlaying={() => setIsPlaying((isPlaying) => !isPlaying);}
 					shuffle={shuffle}
 					toggleShuffle={() => setShuffle((shuffle) => !shuffle)}
 					repeat={repeat}
