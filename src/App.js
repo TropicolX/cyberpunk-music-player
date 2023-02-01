@@ -53,32 +53,6 @@ function App() {
 	const [repeat, setRepeat] = useState(false);
 	const audioRef = useRef();
 
-	const shufflePlaylist = () => {
-		setShuffledPlaylist((playlist) => {
-			if (playlist.length === 1) return playlist;
-
-			// new playlist is an array without the current song
-			const newPlaylist = playlist.filter(
-				(song) => song.id !== playlist[currentSongIndex].id
-			);
-
-			// shuffle the new playlist
-			let shuffledPlaylist = newPlaylist.sort(() => Math.random() - 0.5);
-
-			// add the current song to the beginning of the shuffled playlist
-			shuffledPlaylist = [
-				playlist[currentSongIndex],
-				...shuffledPlaylist,
-			];
-			return shuffledPlaylist;
-		});
-	};
-
-	const repeatSong = () => {
-		audioRef.current.currentTime = 0;
-		audioRef.current.play();
-	};
-
 	useEffect(() => {
 		audioRef.current.volume = volume;
 	}, [volume]);
@@ -105,6 +79,32 @@ function App() {
 	useEffect(() => {
 		if (shuffle) shufflePlaylist();
 	}, [shuffle]);
+
+	const repeatSong = () => {
+		audioRef.current.currentTime = 0;
+		audioRef.current.play();
+	};
+
+	const shufflePlaylist = () => {
+		setShuffledPlaylist((playlist) => {
+			if (playlist.length === 1) return playlist;
+
+			// new playlist is an array without the current song
+			const newPlaylist = playlist.filter(
+				(song) => song.id !== playlist[currentSongIndex].id
+			);
+
+			// shuffle the new playlist
+			let shuffledPlaylist = newPlaylist.sort(() => Math.random() - 0.5);
+
+			// add the current song to the beginning of the shuffled playlist
+			shuffledPlaylist = [
+				playlist[currentSongIndex],
+				...shuffledPlaylist,
+			];
+			return shuffledPlaylist;
+		});
+	};
 
 	const setTimeUpdate = () => {
 		const currentTime = audioRef.current.currentTime;
@@ -174,9 +174,6 @@ function App() {
 		const seconds = Math.floor(time - minutes * 60);
 		return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 	};
-
-	console.log(playlist);
-	console.log(currentSongIndex);
 
 	return (
 		<div className="app">
