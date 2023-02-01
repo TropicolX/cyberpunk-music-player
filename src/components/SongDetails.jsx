@@ -1,19 +1,15 @@
 import React from "react";
 import SongImage from "./SongImage";
 
-const SongDetails = () => {
+const SongDetails = ({ song }) => {
 	return (
 		<div className="songDetails">
 			<div className="songDetails__image">
-				<SongImage
-					url={
-						"https://res.cloudinary.com/tropicolx/image/upload/v1675198754/music_app/song-1_hg9de5.jpg"
-					}
-				/>
+				<SongImage url={song.image} />
 			</div>
 			<div className="songDetails__info">
-				<h3 className="songDetails__songName">song name</h3>
-				<h4 className="songDetails__artistName">artist name</h4>
+				<h3 className="songDetails__songName">{song.title}</h3>
+				<h4 className="songDetails__artistName">{song.artist}</h4>
 			</div>
 		</div>
 	);

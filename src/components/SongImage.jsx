@@ -72,7 +72,8 @@ const SongImage = ({ url }) => {
 					width="2560"
 					height="2560"
 					ref={imageRef}
-					display={imageLoaded ? "block" : "none"}
+					opacity={imageLoaded ? "1" : "0"}
+					className="songDetails__image"
 					attributeName="song image"
 				/>
 				<image

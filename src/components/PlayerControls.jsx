@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+	PauseCircle,
 	PlayCircle,
 	Repeat,
 	Shuffle,
@@ -7,13 +8,19 @@ import {
 	SkipStart,
 } from "react-bootstrap-icons";
 
-const PlayerControls = () => {
-	const [shuffle, setShuffle] = useState(false);
-	const [repeat, setRepeat] = useState(false);
-
+const PlayerControls = ({
+	isPlaying,
+	toggleIsPlaying,
+	prev,
+	next,
+	repeat,
+	toggleRepeat,
+	shuffle,
+	toggleShuffle,
+}) => {
 	return (
 		<div className="playerControls">
-			<button onClick={() => setShuffle((prev) => !prev)}>
+			<button onClick={toggleShuffle}>
 				<Shuffle
 					title="shuffle icon"
 					color={
@@ -25,21 +32,30 @@ const PlayerControls = () => {
 				/>
 			</button>
 			<div className="playerControls__main">
-				<button>
+				<button onClick={prev}>
 					<SkipStart
 						color="var(--primary-color)"
 						size={47}
 						title="previous icon"
 					/>
 				</button>
-				<button>
-					<PlayCircle
-						color="var(--primary-color)"
-						size={47}
-						title="play icon"
-					/>
+				<button onClick={toggleIsPlaying}>
+					{!isPlaying && (
+						<PlayCircle
+							color="var(--primary-color)"
+							size={47}
+							title="play icon"
+						/>
+					)}
+					{isPlaying && (
+						<PauseCircle
+							color="var(--primary-color)"
+							size={47}
+							title="pause icon"
+						/>
+					)}
 				</button>
-				<button>
+				<button onClick={next}>
 					<SkipEnd
 						color="var(--primary-color)"
 						size={47}
@@ -47,7 +63,7 @@ const PlayerControls = () => {
 					/>
 				</button>
 			</div>
-			<button onClick={() => setRepeat((prev) => !prev)}>
+			<button onClick={toggleRepeat}>
 				<Repeat
 					title="repeat icon"
 					color={

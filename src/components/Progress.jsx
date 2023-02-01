@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Progress = () => {
-	const [value, setValue] = useState(50);
-
+const Progress = ({
+	value,
+	onChange,
+	onClick,
+	onTouchStart,
+	onTouchEnd,
+	onMouseDown,
+	timeElapsed,
+	songLength,
+}) => {
 	return (
 		<div className="progress">
 			<input
@@ -10,16 +17,20 @@ const Progress = () => {
 				aria-label="Progress Bar"
 				value={value}
 				className="progress__barSlider"
-				onChange={(e) => setValue(Number(e.target.value))}
+				onChange={onChange}
 				style={{
 					background: `linear-gradient(90deg, var(--primary-color) ${Math.floor(
-						50
-					)}%, transparent ${Math.floor(50)}%)`,
+						value
+					)}%, transparent ${Math.floor(value)}%)`,
 				}}
+				onClick={onClick}
+				onTouchStart={onTouchStart}
+				onTouchEnd={onTouchEnd}
+				onMouseDown={onMouseDown}
 			/>
 			<div className="progress__time">
-				<span className="progress__timeElapsed">0:30</span>
-				<span className="progress__timeLength">3:45</span>
+				<span className="progress__timeElapsed">{timeElapsed}</span>
+				<span className="progress__timeLength">{songLength}</span>
 			</div>
 		</div>
 	);

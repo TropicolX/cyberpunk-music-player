@@ -60,6 +60,10 @@ button {
 	-moz-user-select: none;
 }
 
+.songDetails__image {
+	transition: opacity 0.25s ease-in;
+}
+
 .songDetails__artistName,
 .songDetails__songName {
 	text-align: center;
@@ -187,10 +191,11 @@ button {
 .progress__barSlider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 14px;
-	height: 14px;
-	outline: 2px solid var(--primary-color);
+	width: 16px;
+	height: 16px;
+	/* outline: 2px solid var(--primary-color); */
 	background: #f8ef00;
+	border-radius: 50%;
 	cursor: pointer;
 	position: relative;
 }

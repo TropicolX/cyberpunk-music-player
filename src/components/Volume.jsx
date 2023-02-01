@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const Volume = () => {
+const Volume = ({ value, onChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [volume, setVolume] = useState(0);
 
 	const ref = useRef(null);
 
@@ -39,7 +38,7 @@ const Volume = () => {
 		<button className="volume" onClick={handleClick}>
 			<div
 				style={{
-					background: getVolumeSvg(volume),
+					background: getVolumeSvg(value),
 				}}
 				className="volume__icon"
 			></div>
@@ -50,13 +49,11 @@ const Volume = () => {
 							<input
 								type="range"
 								aria-label="Volume"
-								value={volume}
+								value={value}
 								min="0"
 								max="100"
 								className="volume__barSlider"
-								onChange={(e) =>
-									setVolume(Number(e.target.value))
-								}
+								onChange={onChange}
 							/>
 						</div>
 					</div>
