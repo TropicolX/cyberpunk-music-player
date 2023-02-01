@@ -3,10 +3,8 @@ import React from "react";
 const Progress = ({
 	value,
 	onChange,
-	onClick,
-	onTouchStart,
-	onTouchEnd,
-	onMouseDown,
+	progressSeekStart,
+	progressSeekEnd,
 	timeElapsed,
 	songLength,
 }) => {
@@ -16,17 +14,19 @@ const Progress = ({
 				type="range"
 				aria-label="Progress Bar"
 				value={value}
+				min="0"
+				max="100"
 				className="progress__barSlider"
 				onChange={onChange}
 				style={{
-					background: `linear-gradient(90deg, var(--primary-color) ${Math.floor(
+					background: `linear-gradient(90deg, var(--primary-color) ${Math.ceil(
 						value
-					)}%, transparent ${Math.floor(value)}%)`,
+					)}%, transparent ${Math.ceil(value)}%)`,
 				}}
-				onClick={onClick}
-				onTouchStart={onTouchStart}
-				onTouchEnd={onTouchEnd}
-				onMouseDown={onMouseDown}
+				onTouchStart={progressSeekStart}
+				onMouseDown={progressSeekStart}
+				onTouchEnd={progressSeekEnd}
+				onClick={progressSeekEnd}
 			/>
 			<div className="progress__time">
 				<span className="progress__timeElapsed">{timeElapsed}</span>

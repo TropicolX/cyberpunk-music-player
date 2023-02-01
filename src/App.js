@@ -1,37 +1,36 @@
-import React, {
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import PlayerControls from "./components/PlayerControls";
+import Progress from "./components/Progress";
+import SongDetails from "./components/SongDetails";
 import Volume from "./components/Volume";
 
 import "./App.css";
-import SongDetails from "./components/SongDetails";
-import Progress from "./components/Progress";
-import PlayerControls from "./components/PlayerControls";
 
 const songs = [
 	{
+		id: 0,
 		title: "Machinery of War",
 		artist: "Evgeny Bardyuzha",
 		image: "https://res.cloudinary.com/tropicolx/image/upload/v1675198754/music_app/song-1_hg9de5.jpg",
 		src: "https://res.cloudinary.com/tropicolx/video/upload/v1675218409/music_app/Evgeny_Bardyuzha_-_Machinery_of_War_fyaroh.mp3",
 	},
 	{
+		id: 1,
 		title: "Nova",
 		artist: "2050",
 		image: "https://res.cloudinary.com/tropicolx/image/upload/v1675198988/music_app/song-2_cpedns.jpg",
 		src: "https://res.cloudinary.com/tropicolx/video/upload/v1675218406/music_app/2050_-_Nova_jp2ila.mp3",
 	},
 	{
+		id: 2,
 		title: "Medusa",
 		artist: "Kryptos",
 		image: "https://res.cloudinary.com/tropicolx/image/upload/v1675198993/music_app/song-3_vssxk7.jpg",
 		src: "https://res.cloudinary.com/tropicolx/video/upload/v1675218402/music_app/Kryptos_-_Medusa_yyj3nc.mp3",
 	},
 	{
+		id: 3,
 		title: "Artificial Intelligence",
 		artist: "Lance Conrad",
 		image: "https://res.cloudinary.com/tropicolx/image/upload/v1675198999/music_app/song-4_pxxo1j.jpg",
@@ -40,9 +39,12 @@ const songs = [
 ];
 
 function App() {
+	const [playlist, setPlaylist] = useState(songs);
+	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
 	const [currentSongIndex, setCurrentSongIndex] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
+	const [dragging, setDragging] = useState(false);
 	const [timeElapsed, setTimeElapsed] = useState(0);
 	const [songLength, setSongLength] = useState(0);
 	const [songFinished, setSongFinished] = useState(false);
@@ -51,25 +53,30 @@ function App() {
 	const [repeat, setRepeat] = useState(false);
 	const audioRef = useRef();
 
-	const setTimeUpdate = () => {
-		const currentTime = audioRef.current.currentTime;
-		const progress = currentTime
-			? Number(
-					((currentTime * 100) / audioRef.current.duration).toFixed(1)
-			  )
-			: 0;
-		setTimeElapsed(currentTime);
-		setProgress(progress);
+	const shufflePlaylist = () => {
+		setShuffledPlaylist((playlist) => {
+			if (playlist.length === 1) return playlist;
+
+			// new playlist is an array without the current song
+			const newPlaylist = playlist.filter(
+				(song) => song.id !== playlist[currentSongIndex].id
+			);
+
+			// shuffle the new playlist
+			let shuffledPlaylist = newPlaylist.sort(() => Math.random() - 0.5);
+
+			// add the current song to the beginning of the shuffled playlist
+			shuffledPlaylist = [
+				playlist[currentSongIndex],
+				...shuffledPlaylist,
+			];
+			return shuffledPlaylist;
+		});
 	};
 
-	const updateCurrentTime = (value) => {
-		const currentTime = (value * audioRef.current.duration) / 100;
-		audioRef.current.currentTime = currentTime;
-	};
-
-	const setLoadedData = async () => {
-		setTimeElapsed(audioRef.current.currentTime);
-		setSongLength(audioRef.current.duration);
+	const repeatSong = () => {
+		audioRef.current.currentTime = 0;
+		audioRef.current.play();
 	};
 
 	useEffect(() => {
@@ -79,8 +86,7 @@ function App() {
 	useEffect(() => {
 		if (songFinished) {
 			if (repeat) {
-				audioRef.current.currentTime = 0;
-				audioRef.current.play();
+				repeatSong();
 			} else {
 				next();
 			}
@@ -96,28 +102,70 @@ function App() {
 		}
 	}, [isPlaying]);
 
-	const play = async () => {
+	useEffect(() => {
+		if (shuffle) shufflePlaylist();
+	}, [shuffle]);
+
+	const setTimeUpdate = () => {
+		const currentTime = audioRef.current.currentTime;
+		const progress = currentTime
+			? Number(
+					((currentTime * 100) / audioRef.current.duration).toFixed(1)
+			  )
+			: 0;
+		setTimeElapsed(currentTime);
+		!dragging && setProgress(progress);
+	};
+
+	const setLoadedData = async () => {
+		setTimeElapsed(audioRef.current.currentTime);
+		setSongLength(audioRef.current.duration);
+	};
+
+	const playSong = async () => {
 		await audioRef.current.load();
 		setIsPlaying(true);
 		audioRef.current.play();
 	};
 
-	const next = async () => {
-		setCurrentSongIndex((currentIndex) => {
-			const nextIndex = currentIndex + 1;
-			const newIndex = nextIndex > songs.length - 1 ? 0 : nextIndex;
+	const next = () => {
+		const currentSongId = playlist[currentSongIndex].id;
+		const newPlaylist = shuffle ? shuffledPlaylist : songs;
+		setPlaylist(newPlaylist);
+		setCurrentSongIndex(() => {
+			const currentSongIndex = newPlaylist.findIndex(
+				(song) => song.id === currentSongId
+			);
+			const nextIndex = currentSongIndex + 1;
+			const newIndex = nextIndex > newPlaylist.length - 1 ? 0 : nextIndex;
 			return newIndex;
 		});
-		play();
+		playSong();
 	};
 
 	const prev = () => {
-		setCurrentSongIndex((currentIndex) => {
-			const prevIndex = currentIndex - 1;
-			const newIndex = prevIndex < 0 ? songs.length - 1 : prevIndex;
+		const currentSongId = playlist[currentSongIndex].id;
+		const newPlaylist = shuffle ? shuffledPlaylist : songs;
+		setPlaylist(newPlaylist);
+		setCurrentSongIndex(() => {
+			const currentSongIndex = newPlaylist.findIndex(
+				(song) => song.id === currentSongId
+			);
+			const prevIndex = currentSongIndex - 1;
+			const newIndex = prevIndex < 0 ? newPlaylist.length - 1 : prevIndex;
 			return newIndex;
 		});
-		play();
+		playSong();
+	};
+
+	const updateCurrentTime = (value) => {
+		const currentTime = (value * audioRef.current.duration) / 100;
+		audioRef.current.currentTime = currentTime;
+	};
+
+	const progressSeekEnd = (e) => {
+		updateCurrentTime(e.target.value);
+		setDragging(false);
 	};
 
 	// convert seconds to minutes and seconds in the format of mm:ss
@@ -127,17 +175,20 @@ function App() {
 		return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 	};
 
+	console.log(playlist);
+	console.log(currentSongIndex);
+
 	return (
 		<div className="app">
 			<audio
-				src={songs[currentSongIndex].src}
+				src={playlist[currentSongIndex].src}
 				ref={audioRef}
 				onTimeUpdate={setTimeUpdate}
 				onLoadedData={setLoadedData}
 				onEnded={() => setSongFinished(true)}
 			></audio>
 			<div className="layout">
-				<SongDetails song={songs[currentSongIndex]} />
+				<SongDetails song={playlist[currentSongIndex]} />
 				<div className="extraControls">
 					<Volume
 						value={volume * 100}
@@ -150,20 +201,20 @@ function App() {
 				<Progress
 					value={progress}
 					onChange={(e) => {
-						updateCurrentTime(e.target.value);
+						setProgress(Number(e.target.value));
 					}}
-					onTouchStart={() => setIsPlaying(false)}
-					onMouseDown={() => setIsPlaying(false)}
-					onClick={() => setIsPlaying(true)}
-					onTouchEnd={() => setIsPlaying(true)}
+					progressSeekStart={() => setDragging(true)}
+					progressSeekEnd={progressSeekEnd}
 					timeElapsed={formatTime(timeElapsed)}
 					songLength={formatTime(songLength)}
 				/>
 				<PlayerControls
-					next={next}
-					prev={prev}
+					next={repeat ? repeatSong : next}
+					prev={repeat ? repeatSong : prev}
 					isPlaying={isPlaying}
-					toggleIsPlaying={() => setIsPlaying((isPlaying) => !isPlaying);}
+					toggleIsPlaying={() =>
+						setIsPlaying((isPlaying) => !isPlaying)
+					}
 					shuffle={shuffle}
 					toggleShuffle={() => setShuffle((shuffle) => !shuffle)}
 					repeat={repeat}

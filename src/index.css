@@ -53,11 +53,15 @@ button {
 	align-items: center;
 }
 
-.songDetails__info {
-	margin-top: 26px;
+.songDetails__info,
+.progress__time {
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
+}
+
+.songDetails__info {
+	margin-top: 26px;
 }
 
 .songDetails__image {
@@ -191,11 +195,11 @@ button {
 .progress__barSlider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 16px;
-	height: 16px;
-	/* outline: 2px solid var(--primary-color); */
+	width: 14px;
+	height: 14px;
+	outline: 2px solid var(--primary-color);
 	background: #f8ef00;
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	cursor: pointer;
 	position: relative;
 }
@@ -234,7 +238,7 @@ button {
 }
 
 .playerControls__main > :not(:first-child) {
-	margin-left: 27px;
+	margin-left: 23px;
 }
 
 @media only screen and (min-width: 768px) {
