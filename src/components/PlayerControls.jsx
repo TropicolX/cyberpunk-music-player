@@ -19,44 +19,48 @@ const PlayerControls = ({
 	shuffle,
 	toggleShuffle,
 }) => {
+	const centerControlSize = 47;
+	const sideControlSize = 25;
+	const color = "var(--primary-color)";
+
 	return (
 		<div className="playerControls">
 			<button onClick={toggleShuffle}>
 				<Shuffle
 					title="shuffle icon"
-					color="var(--primary-color)"
-					size={25}
+					color={color}
+					size={sideControlSize}
 				/>
 				{shuffle && <div className="dot" />}
 			</button>
 			<div className="playerControls__main">
 				<button onClick={prev}>
 					<SkipStart
-						color="var(--primary-color)"
-						size={47}
+						color={color}
+						size={centerControlSize}
 						title="previous icon"
 					/>
 				</button>
 				<button onClick={toggleIsPlaying}>
 					{!isPlaying && (
 						<PlayCircle
-							color="var(--primary-color)"
-							size={47}
+							color={color}
+							size={centerControlSize}
 							title="play icon"
 						/>
 					)}
 					{isPlaying && (
 						<PauseCircle
-							color="var(--primary-color)"
-							size={47}
+							color={color}
+							size={centerControlSize}
 							title="pause icon"
 						/>
 					)}
 				</button>
 				<button onClick={next}>
 					<SkipEnd
-						color="var(--primary-color)"
-						size={47}
+						color={color}
+						size={centerControlSize}
 						title="next icon"
 					/>
 				</button>
@@ -65,18 +69,20 @@ const PlayerControls = ({
 				{!repeat && (
 					<Repeat
 						title="repeat icon"
-						color="var(--primary-color)"
-						size={25}
+						color={color}
+						size={sideControlSize}
 					/>
 				)}
 				{repeat && (
-					<Repeat1
-						title="repeat icon"
-						color="var(--primary-color)"
-						size={25}
-					/>
+					<>
+						<Repeat1
+							title="repeat-one icon"
+							color={color}
+							size={sideControlSize}
+						/>
+						<div className="dot" />
+					</>
 				)}
-				{repeat && <div className="dot" />}
 			</button>
 		</div>
 	);

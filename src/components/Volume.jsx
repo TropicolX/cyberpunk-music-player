@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Volume = ({ value, onChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
-
 	const ref = useRef(null);
 
 	useEffect(() => {
 		const listener = (event) => {
-			// Do nothing if clicking ref's element or descendent elements
 			if (!ref.current || ref.current.contains(event.target)) {
 				return;
 			}
@@ -30,12 +28,8 @@ const Volume = ({ value, onChange }) => {
 		return "url('https://res.cloudinary.com/tropicolx/image/upload/v1675208384/music_app/volume-up_v1f6ne.svg')";
 	};
 
-	const handleClick = () => {
-		setIsOpen(true);
-	};
-
 	return (
-		<button className="volume" onClick={handleClick}>
+		<button className="volume" onClick={() => setIsOpen(true)}>
 			<div
 				style={{
 					background: getVolumeSvg(value),

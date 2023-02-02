@@ -38,7 +38,6 @@ const songs = [
 
 function App() {
 	const [playlist, setPlaylist] = useState(songs);
-	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
 	const [currentSongIndex, setCurrentSongIndex] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
@@ -47,8 +46,9 @@ function App() {
 	const [songLength, setSongLength] = useState(0);
 	const [songFinished, setSongFinished] = useState(false);
 	const [volume, setVolume] = useState(0.7);
-	const [shuffle, setShuffle] = useState(false);
 	const [repeat, setRepeat] = useState(false);
+	const [shuffle, setShuffle] = useState(false);
+	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
 	const audioRef = useRef();
 
 	useEffect(() => {
@@ -93,15 +93,12 @@ function App() {
 		setShuffledPlaylist((playlist) => {
 			if (playlist.length === 1) return playlist;
 
-			// new playlist is an array without the current song
 			const newPlaylist = playlist.filter(
 				(song) => song.id !== playlist[currentSongIndex].id
 			);
 
-			// shuffle the new playlist
 			let shuffledPlaylist = newPlaylist.sort(() => Math.random() - 0.5);
 
-			// add the current song to the beginning of the shuffled playlist
 			shuffledPlaylist = [
 				playlist[currentSongIndex],
 				...shuffledPlaylist,
@@ -166,7 +163,6 @@ function App() {
 		setDragging(false);
 	};
 
-	// convert seconds to minutes and seconds in the format of mm:ss
 	const formatTime = (time) => {
 		const minutes = Math.floor(time / 60);
 		const seconds = Math.floor(time - minutes * 60);
