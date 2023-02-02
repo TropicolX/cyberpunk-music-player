@@ -57,7 +57,7 @@ const Volume = ({ value, onChange }) => {
 							/>
 						</div>
 					</div>
-					<div className="volume__iconOverlay"></div>
+					<div className="volume__iconBlocker"></div>
 				</>
 			)}
 		</button>

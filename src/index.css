@@ -31,7 +31,6 @@ button {
 	background: var(--background-color);
 	background-size: cover;
 	background-blend-mode: multiply;
-
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
@@ -120,7 +119,7 @@ button {
 	height: 30px;
 }
 
-.volume__iconOverlay {
+.volume__iconBlocker {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -132,7 +131,6 @@ button {
 
 .volume__barSlider {
 	-webkit-appearance: none;
-	appearance: none;
 	appearance: none;
 	transform: rotate(-90deg);
 	position: absolute;
