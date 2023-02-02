@@ -85,6 +85,12 @@ function App() {
 		audioRef.current.play();
 	};
 
+	const playSong = async () => {
+		await audioRef.current.load();
+		setIsPlaying(true);
+		audioRef.current.play();
+	};
+
 	const shufflePlaylist = () => {
 		setShuffledPlaylist((playlist) => {
 			if (playlist.length === 1) return playlist;
@@ -120,12 +126,6 @@ function App() {
 	const setLoadedData = async () => {
 		setTimeElapsed(audioRef.current.currentTime);
 		setSongLength(audioRef.current.duration);
-	};
-
-	const playSong = async () => {
-		await audioRef.current.load();
-		setIsPlaying(true);
-		audioRef.current.play();
 	};
 
 	const next = () => {

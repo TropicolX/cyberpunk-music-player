@@ -26,7 +26,7 @@ const PlayerControls = ({
 					color={
 						shuffle
 							? "var(--primary-color)"
-							: "rgba(255, 238, 8, 0.6)"
+							: "rgba(255, 239, 8, 0.45)"
 					}
 					size={25}
 				/>
@@ -69,7 +69,7 @@ const PlayerControls = ({
 					color={
 						repeat
 							? "var(--primary-color)"
-							: "rgba(255, 238, 8, 0.6)"
+							: "rgba(255, 238, 8, 0.45)"
 					}
 					size={25}
 				/>
