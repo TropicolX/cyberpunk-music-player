@@ -9,7 +9,7 @@
 :root {
 	--primary-color: #ffee08;
 	--caption-color: rgba(255, 238, 8, 0.48);
-	--background-color: #040c1f;
+	--background-color: #030816;
 }
 
 body {
@@ -21,6 +21,7 @@ body {
 }
 
 button {
+	position: relative;
 	background: none;
 	border: none;
 	outline: none;
@@ -228,6 +229,16 @@ button {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.dot {
+	position: absolute;
+	bottom: -2px;
+	left: 9px;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background-color: var(--primary-color);
 }
 
 .playerControls__main {

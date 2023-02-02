@@ -3,6 +3,7 @@ import {
 	PauseCircle,
 	PlayCircle,
 	Repeat,
+	Repeat1,
 	Shuffle,
 	SkipEnd,
 	SkipStart,
@@ -23,13 +24,10 @@ const PlayerControls = ({
 			<button onClick={toggleShuffle}>
 				<Shuffle
 					title="shuffle icon"
-					color={
-						shuffle
-							? "var(--primary-color)"
-							: "rgba(255, 239, 8, 0.45)"
-					}
+					color="var(--primary-color)"
 					size={25}
 				/>
+				{shuffle && <div className="dot" />}
 			</button>
 			<div className="playerControls__main">
 				<button onClick={prev}>
@@ -64,15 +62,21 @@ const PlayerControls = ({
 				</button>
 			</div>
 			<button onClick={toggleRepeat}>
-				<Repeat
-					title="repeat icon"
-					color={
-						repeat
-							? "var(--primary-color)"
-							: "rgba(255, 238, 8, 0.45)"
-					}
-					size={25}
-				/>
+				{!repeat && (
+					<Repeat
+						title="repeat icon"
+						color="var(--primary-color)"
+						size={25}
+					/>
+				)}
+				{repeat && (
+					<Repeat1
+						title="repeat icon"
+						color="var(--primary-color)"
+						size={25}
+					/>
+				)}
+				{repeat && <div className="dot" />}
 			</button>
 		</div>
 	);
