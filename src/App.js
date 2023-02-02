@@ -5,8 +5,6 @@ import Progress from "./components/Progress";
 import SongDetails from "./components/SongDetails";
 import Volume from "./components/Volume";
 
-import "./App.css";
-
 const songs = [
 	{
 		id: 0,
