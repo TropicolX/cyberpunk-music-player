@@ -30,16 +30,16 @@ button {
 	background-size: cover;
 	background-blend-mode: multiply;
 	width: 100vw;
+	min-height: 90vh;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
-	/* align-items: flex-end; */
+	align-items: flex-end;
 }
 
 .layout {
 	padding: 40px;
-	/* margin-bottom: 36px; */
-	padding-top: 95px;
+	margin-bottom: 36px;
 	max-width: 390px;
 }
 
