@@ -260,8 +260,12 @@ button {
 	}
 }
 
-@media only screen and (max-height: 790px) {
+@media only screen and (max-height: 740px) {
 	.layout {
 		margin: 0px;
+	}
+
+	.app {
+		align-items: center;
 	}
 }
