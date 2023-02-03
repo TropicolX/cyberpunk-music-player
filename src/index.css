@@ -38,6 +38,7 @@ button {
 }
 
 .layout {
+	display: none;
 	padding: 40px;
 	max-width: 390px;
 }
@@ -259,10 +260,6 @@ button {
 }
 
 @media only screen and (max-height: 640px) {
-	.layout {
-		margin: 0px;
-	}
-
 	.app {
 		align-items: center;
 	}
