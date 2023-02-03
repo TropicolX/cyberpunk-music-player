@@ -29,15 +29,12 @@ button {
 	background: var(--background-color);
 	width: 100vw;
 	height: 100vh;
-	overflow: hidden;
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
 }
 
 .layout {
-	display: none;
-	padding: 2.5rem;
 	max-width: 24.375rem;
 }
 
@@ -253,7 +250,7 @@ button {
 
 	.layout {
 		border: 2px solid var(--primary-color);
-		margin: 0rem;
+		padding: 2.5rem;
 	}
 }
 
