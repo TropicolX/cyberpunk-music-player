@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Soundwave } from "react-bootstrap-icons";
 
 import PlayerControls from "./components/PlayerControls";
 import Progress from "./components/Progress";
@@ -37,6 +38,7 @@ const songs = [
 ];
 
 function App() {
+	const audioRef = useRef();
 	const [playlist, setPlaylist] = useState(songs);
 	const [currentSongIndex, setCurrentSongIndex] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -46,10 +48,28 @@ function App() {
 	const [songLength, setSongLength] = useState(0);
 	const [songFinished, setSongFinished] = useState(false);
 	const [volume, setVolume] = useState(0.7);
+	const [visualizer, setVisualizer] = useState(false);
+	const [context, setContext] = useState(null);
 	const [repeat, setRepeat] = useState(false);
 	const [shuffle, setShuffle] = useState(false);
 	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
-	const audioRef = useRef();
+	const [source, setSource] = useState(null);
+	const [analyser, setAnalyser] = useState(null);
+
+	useEffect(() => {
+		if (!audioRef.current || window === undefined) return;
+
+		const AudioContext = window.AudioContext || window.webkitAudioContext;
+		var ctx = new AudioContext();
+		setContext(ctx);
+		let src = ctx.createMediaElementSource(audioRef.current);
+		setSource(src);
+		let analyserNode = ctx.createAnalyser();
+		setAnalyser(analyserNode);
+
+		src.connect(analyserNode);
+		analyserNode.connect(ctx.destination);
+	}, []);
 
 	useEffect(() => {
 		audioRef.current.volume = volume;
@@ -67,12 +87,17 @@ function App() {
 	}, [songFinished]);
 
 	useEffect(() => {
-		if (isPlaying) {
-			audioRef.current.play();
-		} else {
-			audioRef.current.pause();
-		}
-	}, [isPlaying]);
+		const playOrPause = async () => {
+			if (isPlaying) {
+				await context.resume();
+				await audioRef.current.play();
+			} else {
+				audioRef.current.pause();
+			}
+		};
+
+		playOrPause();
+	}, [isPlaying, context]);
 
 	useEffect(() => {
 		if (shuffle) shufflePlaylist();
@@ -84,7 +109,7 @@ function App() {
 	};
 
 	const playSong = async () => {
-		await audioRef.current.load();
+		await context.resume();
 		setIsPlaying(true);
 		audioRef.current.play();
 	};
@@ -177,17 +202,30 @@ function App() {
 				onTimeUpdate={setTimeUpdate}
 				onLoadedData={setLoadedData}
 				onEnded={() => setSongFinished(true)}
+				crossOrigin="anonymous"
 			></audio>
 			<div className="layout">
-				<SongDetails song={playlist[currentSongIndex]} />
-				<div className="extraControls">
+				<SongDetails
+					visualizer={visualizer}
+					source={source}
+					analyser={analyser}
+					currentSongIndex={currentSongIndex}
+					song={playlist[currentSongIndex]}
+				/>
+				<div className="volumeAndVisualizer">
 					<Volume
 						value={volume * 100}
 						onChange={(e) =>
 							setVolume(Number(e.target.value) / 100)
 						}
 					/>
-					<button className="visualizer" />
+					<button onClick={() => setVisualizer((prev) => !prev)}>
+						<Soundwave
+							color="var(--primary-color)"
+							size={30}
+							title="visualizer button"
+						/>
+					</button>
 				</div>
 				<Progress
 					value={progress}
