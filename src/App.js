@@ -220,7 +220,8 @@ function App() {
 						}
 					/>
 					<button onClick={() => setVisualizer((prev) => !prev)}>
-						<Soundwave color="var(--primary-color)" size={30} />
+						<Soundwave color="var(--primary-color)" size={25} />
+						{visualizer && <div className="dot" />}
 					</button>
 				</div>
 				<Progress

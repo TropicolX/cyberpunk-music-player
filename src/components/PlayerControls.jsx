@@ -25,7 +25,7 @@ const PlayerControls = ({
 
 	return (
 		<div className="playerControls">
-			<button onClick={toggleShuffle}>
+			<button className="shuffle" onClick={toggleShuffle}>
 				<Shuffle color={color} size={sideControlSize} />
 				{shuffle && <div className="dot" />}
 			</button>
