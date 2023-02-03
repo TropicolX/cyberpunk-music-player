@@ -258,7 +258,7 @@ button {
 	}
 }
 
-@media only screen and (max-height: 740px) {
+@media only screen and (max-height: 640px) {
 	.layout {
 		margin: 0px;
 	}
