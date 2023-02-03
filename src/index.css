@@ -34,12 +34,13 @@ button {
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
-	align-items: flex-end;
+	/* align-items: flex-end; */
 }
 
 .layout {
 	padding: 40px;
-	margin-bottom: 36px;
+	/* margin-bottom: 36px; */
+	margin-top: 90px;
 	max-width: 390px;
 }
 
@@ -255,12 +256,12 @@ button {
 
 	.layout {
 		border: 2px solid var(--primary-color);
-		margin-bottom: 0px;
+		margin: 0px;
 	}
 }
 
 @media only screen and (max-height: 790px) {
 	.layout {
-		margin-bottom: 0px;
+		margin: 0px;
 	}
 }

@@ -1,23 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 const Volume = ({ value, onChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef(null);
-
-	useEffect(() => {
-		const listener = (event) => {
-			if (!ref.current || ref.current.contains(event.target)) {
-				return;
-			}
-			setIsOpen(false);
-		};
-		document.addEventListener("mousedown", listener);
-		document.addEventListener("touchstart", listener);
-		return () => {
-			document.removeEventListener("mousedown", listener);
-			document.removeEventListener("touchstart", listener);
-		};
-	}, [ref, setIsOpen]);
 
 	const getVolumeSvg = (volume) => {
 		if (volume === 0) {
@@ -28,8 +13,19 @@ const Volume = ({ value, onChange }) => {
 		return "url('https://res.cloudinary.com/tropicolx/image/upload/v1675208384/music_app/volume-up_v1f6ne.svg')";
 	};
 
+	const onBlur = (event) => {
+		if (ref.current && !ref.current.contains(event.relatedTarget)) {
+			setIsOpen(false);
+		}
+	};
+
 	return (
-		<button className="volume" onClick={() => setIsOpen(true)}>
+		<button
+			className="volume"
+			tabIndex={0}
+			onFocus={() => setIsOpen(true)}
+			onBlur={onBlur}
+		>
 			<div
 				style={{
 					background: getVolumeSvg(value),
@@ -51,7 +47,10 @@ const Volume = ({ value, onChange }) => {
 							/>
 						</div>
 					</div>
-					<div className="volume__iconBlocker"></div>
+					<div
+						onMouseDown={() => setIsOpen(false)}
+						className="volume__iconBlocker"
+					></div>
 				</>
 			)}
 		</button>
