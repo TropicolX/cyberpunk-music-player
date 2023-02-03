@@ -12,6 +12,11 @@
 	--background-color: #030816;
 }
 
+html {
+	height: fill-available;
+	height: -webkit-fill-available;
+}
+
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -28,7 +33,9 @@ button {
 .app {
 	background: var(--background-color);
 	width: 100vw;
-	min-height: 90vh;
+	min-height: 100vh;
+	min-height: fill-available;
+	min-height: -webkit-fill-available;
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
