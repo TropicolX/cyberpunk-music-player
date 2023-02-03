@@ -30,7 +30,6 @@ button {
 	background-size: cover;
 	background-blend-mode: multiply;
 	width: 100vw;
-	height: 100vh;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
@@ -40,7 +39,7 @@ button {
 .layout {
 	padding: 40px;
 	/* margin-bottom: 36px; */
-	margin-top: 90px;
+	padding-top: 95px;
 	max-width: 390px;
 }
 
@@ -252,6 +251,7 @@ button {
 @media only screen and (min-width: 768px) {
 	.app {
 		align-items: center;
+		height: 100vh;
 	}
 
 	.layout {
