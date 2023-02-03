@@ -36,6 +36,7 @@ button {
 
 .layout {
 	max-width: 24.375rem;
+	padding: 2.5rem 0;
 }
 
 .songDetails,
