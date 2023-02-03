@@ -30,7 +30,7 @@ button {
 	background-size: cover;
 	background-blend-mode: multiply;
 	width: 100vw;
-	min-height: 90vh;
+	height: 100vh;
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
@@ -251,7 +251,6 @@ button {
 @media only screen and (min-width: 768px) {
 	.app {
 		align-items: center;
-		height: 100vh;
 	}
 
 	.layout {
