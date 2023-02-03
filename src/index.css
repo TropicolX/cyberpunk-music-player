@@ -27,8 +27,6 @@ button {
 
 .app {
 	background: var(--background-color);
-	background-size: cover;
-	background-blend-mode: multiply;
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
@@ -39,8 +37,8 @@ button {
 
 .layout {
 	display: none;
-	padding: 40px;
-	max-width: 390px;
+	padding: 2.5rem;
+	max-width: 24.375rem;
 }
 
 .songDetails,
@@ -58,7 +56,7 @@ button {
 }
 
 .songDetails__info {
-	margin-top: 26px;
+	margin-top: 1.625rem;
 }
 
 .songDetails__image {
@@ -73,23 +71,23 @@ button {
 .songDetails__songName {
 	font-family: "Chakra Petch";
 	font-weight: 600;
-	font-size: 24px;
-	line-height: 31px;
+	font-size: 1.5rem;
+	line-height: 1.9375rem;
 	color: var(--primary-color);
 }
 
 .songDetails__artistName {
-	margin-top: 6px;
+	margin-top: 0.375rem;
 	font-family: "Barlow";
 	font-weight: 400;
-	font-size: 16px;
-	line-height: 16px;
+	font-size: 1rem;
+	line-height: 1rem;
 	letter-spacing: 0.1em;
 	color: var(--caption-color);
 }
 
 .extraControls {
-	margin-top: 42px;
+	margin-top: 2.625rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -101,28 +99,28 @@ button {
 
 .volume__barContainer {
 	position: absolute;
-	top: -166px;
-	left: -12px;
+	top: -10.375rem;
+	left: -0.75rem;
 }
 
 .volume__bar {
-	width: 54px;
-	height: 150px;
+	width: 3.375rem;
+	height: 9.375rem;
 	background: url("https://res.cloudinary.com/tropicolx/image/upload/v1675201998/music_app/volume-bar-container_ew2yi7.svg");
 }
 
 .volume__icon {
 	cursor: pointer;
-	width: 30px;
-	height: 30px;
+	width: 1.875rem;
+	height: 1.875rem;
 }
 
 .volume__iconBlocker {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 30px;
-	height: 30px;
+	width: 1.875rem;
+	height: 1.875rem;
 	background-color: transparent;
 	cursor: pointer;
 }
@@ -132,12 +130,12 @@ button {
 	appearance: none;
 	transform: rotate(-90deg);
 	position: absolute;
-	top: 70px;
-	left: -40px;
+	top: 4.375rem;
+	left: -2.5rem;
 	background: transparent;
 	border: 2px solid var(--primary-color);
-	width: 136px;
-	height: 8px;
+	width: 8.5rem;
+	height: 0.5rem;
 }
 
 .volume__barSlider:focus {
@@ -151,17 +149,17 @@ button {
 .volume__barSlider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 17px;
-	height: 27px;
+	width: 1.0625rem;
+	height: 1.6875rem;
 	outline: 2px solid var(--primary-color);
-	border-radius: 5px;
+	border-radius: 0.3125rem;
 	background: #f8ef00;
 	cursor: pointer;
 	position: relative;
 }
 
 .progress {
-	margin-top: 42px;
+	margin-top: 2.625rem;
 }
 
 .progress__barSlider {
@@ -170,7 +168,7 @@ button {
 	background: transparent;
 	border: 2px solid rgba(255, 238, 8, 0.5);
 	width: 100%;
-	height: 8px;
+	height: 0.5rem;
 }
 
 .progress__barSlider:focus {
@@ -184,8 +182,8 @@ button {
 .progress__barSlider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 14px;
-	height: 14px;
+	width: 0.875rem;
+	height: 0.875rem;
 	outline: 2px solid var(--primary-color);
 	background: #f8ef00;
 	/* border-radius: 50%; */
@@ -194,8 +192,8 @@ button {
 }
 
 .progress__barSlider::-moz-range-thumb {
-	width: 14px;
-	height: 14px;
+	width: 0.875rem;
+	height: 0.875rem;
 	outline: 2px solid var(--primary-color);
 	background: #f8ef00;
 	cursor: pointer;
@@ -203,11 +201,11 @@ button {
 }
 
 .progress__time {
-	margin-top: 10px;
+	margin-top: 0.625rem;
 	font-family: "Bai Jamjuree";
 	font-weight: 500;
-	font-size: 12px;
-	line-height: 15px;
+	font-size: 0.75rem;
+	line-height: 0.9375rem;
 	color: var(--primary-color);
 	display: flex;
 	justify-content: space-between;
@@ -215,7 +213,7 @@ button {
 }
 
 .playerControls {
-	margin-top: 45px;
+	margin-top: 2.8125rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -224,15 +222,15 @@ button {
 .dot {
 	position: absolute;
 	bottom: -2px;
-	left: 10.8px;
-	width: 5px;
-	height: 5px;
+	left: 0.675rem;
+	width: 0.3125rem;
+	height: 0.3125rem;
 	border-radius: 50%;
 	background-color: var(--primary-color);
 }
 
 .shuffle .dot {
-	left: 9px;
+	left: 0.5625rem;
 }
 
 .playerControls__main {
@@ -241,7 +239,7 @@ button {
 }
 
 .playerControls__main > :not(:first-child) {
-	margin-left: 23px;
+	margin-left: 1.4375rem;
 }
 
 #canvasWrapper canvas {
@@ -255,7 +253,7 @@ button {
 
 	.layout {
 		border: 2px solid var(--primary-color);
-		margin: 0px;
+		margin: 0rem;
 	}
 }
 
