@@ -27,7 +27,7 @@ button {
 
 .app {
 	background: var(--background-color);
-	height: 100dvh;
+	height: 100svh;
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
