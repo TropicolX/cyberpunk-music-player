@@ -111,7 +111,7 @@ function App() {
 	const playSong = async () => {
 		await context.resume();
 		setIsPlaying(true);
-		audioRef.current.play();
+		await audioRef.current.play();
 	};
 
 	const shufflePlaylist = () => {
