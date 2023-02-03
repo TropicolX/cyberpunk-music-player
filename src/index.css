@@ -88,7 +88,7 @@ button {
 	color: var(--caption-color);
 }
 
-.volumeAndVisualizer {
+.extraControls {
 	margin-top: 42px;
 	display: flex;
 	justify-content: space-between;

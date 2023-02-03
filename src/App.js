@@ -212,7 +212,7 @@ function App() {
 					currentSongIndex={currentSongIndex}
 					song={playlist[currentSongIndex]}
 				/>
-				<div className="volumeAndVisualizer">
+				<div className="extraControls">
 					<Volume
 						value={volume * 100}
 						onChange={(e) =>
