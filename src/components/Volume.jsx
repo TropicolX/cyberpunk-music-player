@@ -1,8 +1,36 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import "../styles/Volume.css";
+
+const useOnClickOutside = (ref, handler) => {
+	useEffect(() => {
+		const listener = (event) => {
+			if (!ref.current || ref.current.contains(event.target)) {
+				return;
+			}
+			console.log("inside useOnClickOutside");
+			handler(event);
+		};
+
+		document.addEventListener("mousedown", listener);
+		document.addEventListener("touchstart", listener);
+
+		return () => {
+			document.removeEventListener("mousedown", listener);
+			document.removeEventListener("touchstart", listener);
+		};
+	}, [ref, handler]);
+};
 
 const Volume = ({ value, onChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const ref = useRef(null);
+
+	const divRef = useRef(null);
+	useOnClickOutside(divRef, () => setIsOpen(false));
+
+	const toggleIsOpen = () => {
+		setIsOpen((prev) => !prev);
+	};
 
 	const getVolumeSvg = (volume) => {
 		if (volume === 0) {
@@ -13,47 +41,37 @@ const Volume = ({ value, onChange }) => {
 		return "url('https://res.cloudinary.com/tropicolx/image/upload/v1675208384/music_app/volume-up_v1f6ne.svg')";
 	};
 
-	const onBlur = (event) => {
-		if (ref.current && !ref.current.contains(event.relatedTarget)) {
-			setIsOpen(false);
-		}
-	};
-
 	return (
-		<button
-			className="volume"
-			tabIndex={0}
-			onFocus={() => setIsOpen(true)}
-			onBlur={onBlur}
-		>
-			<div
-				style={{
-					background: getVolumeSvg(value),
-				}}
-				className="volume__icon"
-			></div>
+		<div ref={divRef} className="volumeContainer">
+			<button
+				onClick={toggleIsOpen}
+				className="volume"
+				tabIndex={0}
+				aria-label="Volume"
+			>
+				<div
+					style={{
+						background: getVolumeSvg(value),
+					}}
+					className="volume__icon"
+				></div>
+			</button>
 			{isOpen && (
-				<>
-					<div ref={ref} className="volume__barContainer">
-						<div className="volume__bar">
-							<input
-								type="range"
-								aria-label="Volume"
-								value={value}
-								min="0"
-								max="100"
-								className="volume__barSlider"
-								onChange={onChange}
-							/>
-						</div>
+				<div className="volume__barContainer">
+					<div className="volume__bar">
+						<input
+							type="range"
+							aria-label="Volume"
+							value={value}
+							min="0"
+							max="100"
+							className="volume__barSlider"
+							onChange={onChange}
+						/>
 					</div>
-					<div
-						onMouseDown={() => setIsOpen(false)}
-						className="volume__iconBlocker"
-					></div>
-				</>
+				</div>
 			)}
-		</button>
+		</div>
 	);
 };
 

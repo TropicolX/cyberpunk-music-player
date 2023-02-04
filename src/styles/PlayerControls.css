@@ -1,0 +1,19 @@
+.playerControls {
+	margin-top: 2.8125rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.playerControls__main {
+	display: flex;
+	align-items: center;
+}
+
+.playerControls__main > :not(:first-child) {
+	margin-left: 1.4375rem;
+}
+
+.shuffle .dot {
+	left: 0.5625rem;
+}

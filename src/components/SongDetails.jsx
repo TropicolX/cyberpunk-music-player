@@ -1,6 +1,9 @@
 import React from "react";
+
 import SongImage from "./SongImage";
 import Visualizer from "./Visualizer";
+
+import "../styles/SongDetails.css";
 
 const SongDetails = ({
 	song,

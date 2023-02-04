@@ -1,0 +1,43 @@
+.songDetails,
+.songDetails__info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.songDetails__info {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.songDetails__info {
+	margin-top: 1.625rem;
+}
+
+.songDetails__image {
+	transition: opacity 0.25s ease-in;
+}
+
+.songDetails__artistName,
+.songDetails__songName {
+	text-align: center;
+}
+
+.songDetails__songName {
+	font-family: "Chakra Petch";
+	font-weight: 600;
+	font-size: 1.5rem;
+	line-height: 1.9375rem;
+	color: var(--primary-color);
+}
+
+.songDetails__artistName {
+	margin-top: 0.375rem;
+	font-family: "Barlow";
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1rem;
+	letter-spacing: 0.1em;
+	color: var(--caption-color);
+}

@@ -9,6 +9,8 @@ import {
 	SkipStart,
 } from "react-bootstrap-icons";
 
+import "../styles/PlayerControls.css";
+
 const PlayerControls = ({
 	isPlaying,
 	toggleIsPlaying,

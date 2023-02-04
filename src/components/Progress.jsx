@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/Progress.css";
+
 const Progress = ({
 	value,
 	onChange,

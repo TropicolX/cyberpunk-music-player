@@ -1,0 +1,64 @@
+.volumeContainer {
+	position: relative;
+}
+
+.volume__barContainer {
+	position: absolute;
+	top: -10.375rem;
+	left: -0.75rem;
+}
+
+.volume__bar {
+	width: 3.375rem;
+	height: 9.375rem;
+	background: url("https://res.cloudinary.com/tropicolx/image/upload/v1675201998/music_app/volume-bar-container_ew2yi7.svg");
+}
+
+.volume__icon {
+	cursor: pointer;
+	width: 1.875rem;
+	height: 1.875rem;
+}
+
+.volume__iconBlocker {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1.875rem;
+	height: 1.875rem;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.volume__barSlider {
+	-webkit-appearance: none;
+	appearance: none;
+	transform: rotate(-90deg);
+	position: absolute;
+	top: 4.375rem;
+	left: -2.5rem;
+	background: transparent;
+	border: 2px solid var(--primary-color);
+	width: 8.5rem;
+	height: 0.5rem;
+}
+
+.volume__barSlider:focus {
+	outline: none;
+}
+
+.volume__barSlider:focus::-webkit-slider-thumb {
+	outline: 2px solid var(--primary-color);
+}
+
+.volume__barSlider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 1.0625rem;
+	height: 1.6875rem;
+	outline: 2px solid var(--primary-color);
+	border-radius: 0.3125rem;
+	background: #f8ef00;
+	cursor: pointer;
+	position: relative;
+}
