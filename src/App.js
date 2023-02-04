@@ -66,43 +66,6 @@ function App() {
 	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
 	const [analyser, setAnalyser] = useState(null);
 
-	useEffect(() => {
-		audioRef.current.volume = volume;
-	}, [volume]);
-
-	useEffect(() => {
-		if (songFinished) {
-			if (repeat) {
-				repeatSong();
-			} else {
-				next();
-			}
-			setSongFinished(false);
-		}
-	}, [songFinished]);
-
-	useEffect(() => {
-		const playOrPause = async () => {
-			if (isPlaying) {
-				await analyser.context.resume();
-				await audioRef.current.play();
-			} else {
-				audioRef.current.pause();
-			}
-		};
-
-		playOrPause();
-	}, [isPlaying, analyser?.context]);
-
-	useEffect(() => {
-		if (shuffle) shufflePlaylist();
-	}, [shuffle]);
-
-	const repeatSong = () => {
-		audioRef.current.currentTime = 0;
-		audioRef.current.play();
-	};
-
 	const playSong = async () => {
 		await analyser.context.resume();
 		setIsPlaying(true);
@@ -197,6 +160,34 @@ function App() {
 		return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 	};
 
+	useEffect(() => {
+		audioRef.current.volume = volume;
+	}, [volume]);
+
+	useEffect(() => {
+		if (songFinished) {
+			if (!repeat) next();
+			setSongFinished(false);
+		}
+	}, [songFinished]);
+
+	useEffect(() => {
+		const playOrPause = async () => {
+			if (isPlaying) {
+				await analyser?.context?.resume();
+				await audioRef.current.play();
+			} else {
+				audioRef.current.pause();
+			}
+		};
+
+		playOrPause();
+	}, [isPlaying, analyser?.context]);
+
+	useEffect(() => {
+		if (shuffle) shufflePlaylist();
+	}, [shuffle]);
+
 	return (
 		<div className="app">
 			<audio
@@ -205,6 +196,7 @@ function App() {
 				onTimeUpdate={setTimeUpdate}
 				onLoadedData={setLoadedData}
 				onEnded={() => setSongFinished(true)}
+				loop={repeat}
 				crossOrigin="anonymous"
 			></audio>
 			<div className="layout">
@@ -238,8 +230,8 @@ function App() {
 					songLength={formatTime(songLength)}
 				/>
 				<PlayerControls
-					next={repeat ? repeatSong : next}
-					prev={repeat ? repeatSong : prev}
+					next={next}
+					prev={prev}
 					isPlaying={isPlaying}
 					toggleIsPlaying={() =>
 						setIsPlaying((isPlaying) => !isPlaying)
