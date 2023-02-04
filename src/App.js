@@ -37,6 +37,18 @@ const songs = [
 	},
 ];
 
+class AudioAnalyser {
+	constructor(audioElement, context, source) {
+		this.context =
+			context || new (window.AudioContext || window.webkitAudioContext)();
+		this.source =
+			source || this.context.createMediaElementSource(audioElement);
+		this.analyserNode = this.context.createAnalyser();
+		this.source.connect(this.analyserNode);
+		this.analyserNode.connect(this.context.destination);
+	}
+}
+
 function App() {
 	const audioRef = useRef();
 	const [playlist, setPlaylist] = useState(songs);
@@ -49,27 +61,10 @@ function App() {
 	const [songFinished, setSongFinished] = useState(false);
 	const [volume, setVolume] = useState(0.7);
 	const [visualizer, setVisualizer] = useState(false);
-	const [context, setContext] = useState(null);
 	const [repeat, setRepeat] = useState(false);
 	const [shuffle, setShuffle] = useState(false);
 	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
-	const [source, setSource] = useState(null);
 	const [analyser, setAnalyser] = useState(null);
-
-	useEffect(() => {
-		if (!audioRef.current || window === undefined) return;
-
-		const AudioContext = window.AudioContext || window.webkitAudioContext;
-		var ctx = new AudioContext();
-		setContext(ctx);
-		let src = ctx.createMediaElementSource(audioRef.current);
-		setSource(src);
-		let analyserNode = ctx.createAnalyser();
-		setAnalyser(analyserNode);
-
-		src.connect(analyserNode);
-		analyserNode.connect(ctx.destination);
-	}, []);
 
 	useEffect(() => {
 		audioRef.current.volume = volume;
@@ -89,7 +84,7 @@ function App() {
 	useEffect(() => {
 		const playOrPause = async () => {
 			if (isPlaying) {
-				await context.resume();
+				await analyser.context.resume();
 				await audioRef.current.play();
 			} else {
 				audioRef.current.pause();
@@ -97,7 +92,7 @@ function App() {
 		};
 
 		playOrPause();
-	}, [isPlaying, context]);
+	}, [isPlaying, analyser?.context]);
 
 	useEffect(() => {
 		if (shuffle) shufflePlaylist();
@@ -109,7 +104,7 @@ function App() {
 	};
 
 	const playSong = async () => {
-		await context.resume();
+		await analyser.context.resume();
 		setIsPlaying(true);
 		await audioRef.current.play();
 	};
@@ -133,19 +128,26 @@ function App() {
 	};
 
 	const setTimeUpdate = () => {
-		const currentTime = audioRef.current.currentTime;
+		const audio = audioRef.current;
+		const currentTime = audio.currentTime;
 		const progress = currentTime
-			? Number(
-					((currentTime * 100) / audioRef.current.duration).toFixed(1)
-			  )
+			? Number(((currentTime * 100) / audio.duration).toFixed(1))
 			: 0;
 		setTimeElapsed(currentTime);
 		!dragging && setProgress(progress);
 	};
 
 	const setLoadedData = async () => {
-		setTimeElapsed(audioRef.current.currentTime);
-		setSongLength(audioRef.current.duration);
+		const audio = audioRef.current;
+		setAnalyser((prevAnalyser) => {
+			return new AudioAnalyser(
+				audio,
+				prevAnalyser?.context,
+				prevAnalyser?.source
+			);
+		});
+		setTimeElapsed(audio.currentTime);
+		setSongLength(audio.duration);
 	};
 
 	const next = () => {
@@ -179,8 +181,9 @@ function App() {
 	};
 
 	const updateCurrentTime = (value) => {
-		const currentTime = (value * audioRef.current.duration) / 100;
-		audioRef.current.currentTime = currentTime;
+		const audio = audioRef.current;
+		const currentTime = (value * audio.duration) / 100;
+		audio.currentTime = currentTime;
 	};
 
 	const progressSeekEnd = (e) => {
@@ -207,8 +210,8 @@ function App() {
 			<div className="layout">
 				<SongDetails
 					visualizer={visualizer}
-					source={source}
-					analyser={analyser}
+					source={analyser?.source}
+					analyser={analyser?.analyserNode}
 					currentSongIndex={currentSongIndex}
 					song={playlist[currentSongIndex]}
 				/>
