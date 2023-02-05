@@ -27,15 +27,22 @@ const PlayerControls = ({
 
 	return (
 		<div className="playerControls">
-			<button className="shuffle" onClick={toggleShuffle}>
+			<button
+				aria-label="Shuffle"
+				className="shuffle"
+				onClick={toggleShuffle}
+			>
 				<Shuffle color={color} size={sideControlSize} />
 				{shuffle && <div className="dot" />}
 			</button>
 			<div className="playerControls__main">
-				<button onClick={prev}>
+				<button aria-label="Previous" onClick={prev}>
 					<SkipStart color={color} size={centerControlSize} />
 				</button>
-				<button onClick={toggleIsPlaying}>
+				<button
+					aria-label={isPlaying ? "Pause" : "Play"}
+					onClick={toggleIsPlaying}
+				>
 					{!isPlaying && (
 						<PlayCircle color={color} size={centerControlSize} />
 					)}
@@ -43,11 +50,11 @@ const PlayerControls = ({
 						<PauseCircle color={color} size={centerControlSize} />
 					)}
 				</button>
-				<button onClick={next}>
+				<button aria-label="Next" onClick={next}>
 					<SkipEnd color={color} size={centerControlSize} />
 				</button>
 			</div>
-			<button onClick={toggleRepeat}>
+			<button aria-label="Repeat" onClick={toggleRepeat}>
 				{!repeat && <Repeat color={color} size={sideControlSize} />}
 				{repeat && (
 					<>

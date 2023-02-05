@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Soundwave } from "react-bootstrap-icons";
 
+import ExtraControls from "./components/ExtraControls";
 import PlayerControls from "./components/PlayerControls";
 import Progress from "./components/Progress";
 import SongDetails from "./components/SongDetails";
-import Volume from "./components/Volume";
 
 const songs = [
 	{
@@ -207,18 +206,14 @@ function App() {
 					currentSongIndex={currentSongIndex}
 					song={playlist[currentSongIndex]}
 				/>
-				<div className="extraControls">
-					<Volume
-						value={volume * 100}
-						onChange={(e) =>
-							setVolume(Number(e.target.value) / 100)
-						}
-					/>
-					<button onClick={() => setVisualizer((prev) => !prev)}>
-						<Soundwave color="var(--primary-color)" size={25} />
-						{visualizer && <div className="dot" />}
-					</button>
-				</div>
+				<ExtraControls
+					volume={volume * 100}
+					onVolumeChange={(e) =>
+						setVolume(Number(e.target.value) / 100)
+					}
+					visualizer={visualizer}
+					toggleVisualizer={() => setVisualizer((prev) => !prev)}
+				/>
 				<Progress
 					value={progress}
 					onChange={(e) => {

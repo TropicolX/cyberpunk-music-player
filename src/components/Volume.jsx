@@ -61,7 +61,7 @@ const Volume = ({ value, onChange }) => {
 					<div className="volume__bar">
 						<input
 							type="range"
-							aria-label="Volume"
+							aria-label="Volume bar"
 							value={value}
 							min="0"
 							max="100"
