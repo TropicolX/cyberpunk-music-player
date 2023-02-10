@@ -42,12 +42,7 @@ const Volume = ({ value, onChange }) => {
 
 	return (
 		<div ref={divRef} className="volumeContainer">
-			<button
-				onClick={toggleIsOpen}
-				className="volume"
-				tabIndex={0}
-				aria-label="Volume"
-			>
+			<button onClick={toggleIsOpen} tabIndex={0} aria-label="Volume">
 				<div
 					style={{
 						background: getVolumeSvg(value),
@@ -56,15 +51,15 @@ const Volume = ({ value, onChange }) => {
 				></div>
 			</button>
 			{isOpen && (
-				<div className="volume__barContainer">
-					<div className="volume__bar">
+				<div className="volume">
+					<div className="volume__sliderContainer">
 						<input
 							type="range"
-							aria-label="Volume bar"
+							aria-label="Volume slider"
 							value={value}
 							min="0"
 							max="100"
-							className="volume__barSlider"
+							className="volume__slider"
 							onChange={onChange}
 						/>
 					</div>

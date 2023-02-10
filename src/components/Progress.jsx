@@ -14,11 +14,11 @@ const Progress = ({
 		<div className="progress">
 			<input
 				type="range"
-				aria-label="Progress Bar"
+				aria-label="Progress slider"
 				value={value}
 				min="0"
 				max="100"
-				className="progress__barSlider"
+				className="progress__slider"
 				onChange={onChange}
 				style={{
 					background: `linear-gradient(90deg, var(--primary-color) ${Math.ceil(

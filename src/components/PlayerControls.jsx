@@ -28,7 +28,7 @@ const PlayerControls = ({
 	return (
 		<div className="playerControls">
 			<button
-				aria-label="Shuffle"
+				aria-label={shuffle ? "Disable shuffle" : "Enable shuffle"}
 				className="shuffle"
 				onClick={toggleShuffle}
 			>
@@ -54,7 +54,10 @@ const PlayerControls = ({
 					<SkipEnd color={color} size={centerControlSize} />
 				</button>
 			</div>
-			<button aria-label="Repeat" onClick={toggleRepeat}>
+			<button
+				aria-label={repeat ? "Disable repeat" : "Enable repeat"}
+				onClick={toggleRepeat}
+			>
 				{!repeat && <Repeat color={color} size={sideControlSize} />}
 				{repeat && (
 					<>

@@ -2,7 +2,7 @@
 	margin-top: 2.625rem;
 }
 
-.progress__barSlider {
+.progress__slider {
 	-webkit-appearance: none;
 	appearance: none;
 	background: transparent;
@@ -11,15 +11,15 @@
 	height: 0.5rem;
 }
 
-.progress__barSlider:focus {
+.progress__slider:focus {
 	outline: none;
 }
 
-.progress__barSlider:focus::-webkit-slider-thumb {
+.progress__slider:focus::-webkit-slider-thumb {
 	outline: 2px solid var(--primary-color);
 }
 
-.progress__barSlider::-webkit-slider-thumb {
+.progress__slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
 	width: 0.875rem;
@@ -30,7 +30,7 @@
 	position: relative;
 }
 
-.progress__barSlider::-moz-range-thumb {
+.progress__slider::-moz-range-thumb {
 	width: 0.875rem;
 	height: 0.875rem;
 	outline: 2px solid var(--primary-color);

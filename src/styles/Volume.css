@@ -2,20 +2,19 @@
 	position: relative;
 }
 
-.volume__barContainer {
+.volume {
 	position: absolute;
 	top: -10.375rem;
 	left: -0.75rem;
 }
 
-.volume__bar {
+.volume__sliderContainer {
 	width: 3.375rem;
 	height: 9.375rem;
 	background: url("https://res.cloudinary.com/tropicolx/image/upload/v1675201998/music_app/volume-bar-container_ew2yi7.svg");
 }
 
 .volume__icon {
-	cursor: pointer;
 	width: 1.875rem;
 	height: 1.875rem;
 }
@@ -30,7 +29,7 @@
 	cursor: pointer;
 }
 
-.volume__barSlider {
+.volume__slider {
 	-webkit-appearance: none;
 	appearance: none;
 	transform: rotate(-90deg);
@@ -43,15 +42,15 @@
 	height: 0.5rem;
 }
 
-.volume__barSlider:focus {
+.volume__slider:focus {
 	outline: none;
 }
 
-.volume__barSlider:focus::-webkit-slider-thumb {
+.volume__slider:focus::-webkit-slider-thumb {
 	outline: 2px solid var(--primary-color);
 }
 
-.volume__barSlider::-webkit-slider-thumb {
+.volume__slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
 	width: 1.0625rem;
