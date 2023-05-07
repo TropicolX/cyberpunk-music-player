@@ -3,12 +3,18 @@ import React, { useState, useEffect, useRef } from "react";
 const SongImage = ({ url }) => {
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const imageRef = useRef(null);
+	const useEl = useRef(null);
 
 	useEffect(() => {
 		setImageLoaded(false);
 		if (!imageRef.current) return;
 		imageRef.current.setAttribute("href", url);
 		imageRef.current.onload = () => setImageLoaded(true);
+		// <- call this in an onUpdate
+		// if (useEl.current) {
+		// 	useEl.current.setAttribute("xlink:href", "");
+		// 	useEl.current.setAttribute("xlink:href", "#image0_254_11");
+		// }
 	}, [imageRef, url]);
 
 	return (
@@ -58,6 +64,7 @@ const SongImage = ({ url }) => {
 					height="1"
 				>
 					<use
+						ref={useEl}
 						xlinkHref={
 							imageLoaded ? "#image0_254_11" : "#image0_254_12"
 						}
