@@ -9,6 +9,7 @@ const Visualizer = ({ analyser, source, currentSongIndex }) => {
 		const container = document.querySelector("#canvasWrapper");
 		const oldCanvas = document.querySelector("#canvasWrapper canvas");
 		if (oldCanvas) oldCanvas.remove();
+
 		let canvas = document.createElement("canvas");
 		canvas.width = width;
 		canvas.height = height;

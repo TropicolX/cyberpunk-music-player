@@ -11,7 +11,6 @@
 .volume__sliderContainer {
 	width: 3.375rem;
 	height: 9.375rem;
-	background: url("https://res.cloudinary.com/tropicolx/image/upload/v1675201998/music_app/volume-bar-container_ew2yi7.svg");
 }
 
 .volume__icon {
