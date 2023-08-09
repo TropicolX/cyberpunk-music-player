@@ -65,6 +65,23 @@ function App() {
 	const [shuffledPlaylist, setShuffledPlaylist] = useState(songs);
 	const [analyser, setAnalyser] = useState(null);
 
+	const setTimeUpdate = () => {
+		const audio = audioRef.current;
+		const currentTime = audio.currentTime;
+		const progress = currentTime
+			? Number(((currentTime * 100) / audio.duration).toFixed(1))
+			: 0;
+		setTimeElapsed(currentTime);
+		!dragging && setProgress(progress);
+	};
+
+	const setLoadedData = async () => {
+		const audio = audioRef.current;
+		!analyser && setAnalyser(new AudioAnalyser(audio));
+		setTimeElapsed(audio.currentTime);
+		setSongLength(audio.duration);
+	};
+
 	const playSong = async () => {
 		await analyser.context.resume();
 		setIsPlaying(true);
@@ -87,23 +104,6 @@ function App() {
 			];
 			return shuffledPlaylist;
 		});
-	};
-
-	const setTimeUpdate = () => {
-		const audio = audioRef.current;
-		const currentTime = audio.currentTime;
-		const progress = currentTime
-			? Number(((currentTime * 100) / audio.duration).toFixed(1))
-			: 0;
-		setTimeElapsed(currentTime);
-		!dragging && setProgress(progress);
-	};
-
-	const setLoadedData = async () => {
-		const audio = audioRef.current;
-		!analyser && setAnalyser(new AudioAnalyser(audio));
-		setTimeElapsed(audio.currentTime);
-		setSongLength(audio.duration);
 	};
 
 	const next = () => {
@@ -158,13 +158,6 @@ function App() {
 	}, [volume]);
 
 	useEffect(() => {
-		if (songFinished) {
-			if (!repeat) next();
-			setSongFinished(false);
-		}
-	}, [songFinished]);
-
-	useEffect(() => {
 		const playOrPause = async () => {
 			if (isPlaying) {
 				await analyser?.context?.resume();
@@ -176,6 +169,13 @@ function App() {
 
 		playOrPause();
 	}, [isPlaying, analyser?.context]);
+
+	useEffect(() => {
+		if (songFinished) {
+			if (!repeat) next();
+			setSongFinished(false);
+		}
+	}, [songFinished]);
 
 	useEffect(() => {
 		if (shuffle) shufflePlaylist();
