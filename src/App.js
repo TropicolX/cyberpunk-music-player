@@ -39,11 +39,9 @@ const songs = [
 ];
 
 class AudioAnalyser {
-	constructor(audioElement, context, source) {
-		this.context =
-			context || new (window.AudioContext || window.webkitAudioContext)();
-		this.source =
-			source || this.context.createMediaElementSource(audioElement);
+	constructor(audioElement) {
+		this.context = new (window.AudioContext || window.webkitAudioContext)();
+		this.source = this.context.createMediaElementSource(audioElement);
 		this.analyserNode = this.context.createAnalyser();
 		this.source.connect(this.analyserNode);
 		this.analyserNode.connect(this.context.destination);
@@ -103,13 +101,7 @@ function App() {
 
 	const setLoadedData = async () => {
 		const audio = audioRef.current;
-		setAnalyser((prevAnalyser) => {
-			return new AudioAnalyser(
-				audio,
-				prevAnalyser?.context,
-				prevAnalyser?.source
-			);
-		});
+		!analyser && setAnalyser(new AudioAnalyser(audio));
 		setTimeElapsed(audio.currentTime);
 		setSongLength(audio.duration);
 	};
